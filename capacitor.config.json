@@ -1,0 +1,8 @@
+{
+  "appId": "com.rohit.moots",
+  "appName": "moots",
+  "webDir": "out",
+  "server": {
+    "cleartext": true
+  }
+}

@@ -26,3 +26,10 @@ yarn-error.log*
 # OS files
 .DS_Store
 Thumbs.db
+
+# Android build outputs
+android/.gradle/
+android/build/
+android/app/build/
+*.apk
+*.aab
