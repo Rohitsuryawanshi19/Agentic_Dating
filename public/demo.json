@@ -1,0 +1,373 @@
+{
+ "people": {
+  "rohit-suryawanshi-54147228a": {
+   "id": "rohit-suryawanshi-54147228a",
+   "linkedin": "https://www.linkedin.com/in/rohit-suryawanshi-54147228a/",
+   "instagram": "https://www.instagram.com/rohittt_19.05/",
+   "status": "ready",
+   "profile": {
+    "name": "Rohit Suryawanshi",
+    "one_liner": "Software builder passionate about high-impact AI, weekend bouldering, and artisan chai.",
+    "location": "San Francisco, CA",
+    "summary": "Rohit is an ambitious full-stack software engineer working at the intersection of developer tooling and distributed systems. Outside of tech, he is a dedicated boulderer who spends weekends outdoors and enjoys dissecting philosophy over loose-leaf chai.",
+    "needs": [
+     { "label": "Intellectual sparring partner", "evidence": "Writes long-form essays on system design and ethics", "confidence": "high" },
+     { "label": "Active outdoor companion", "evidence": "Regular Instagram stories from climbing gyms and hiking trails", "confidence": "high" },
+     { "label": "Emotional grounding", "evidence": "Quotes Marcus Aurelius and reflects on work-life balance", "confidence": "medium" }
+    ],
+    "hobbies": [
+     { "label": "Bouldering & Climbing", "evidence": "V6 bouldering clips and climbing gear highlights", "confidence": "high" },
+     { "label": "Filter Coffee & Chai brewing", "evidence": "AeroPress and moka pot brewing rituals on stories", "confidence": "medium" },
+     { "label": "Tech podcasts & Audiobooks", "evidence": "Active Goodreads updates on sci-fi and autobiographies", "confidence": "medium" }
+    ],
+    "interests": [
+     { "label": "Autonomous AI Agents", "evidence": "GitHub repository contributions and LinkedIn posts", "confidence": "high" },
+     { "label": "Urban Architecture", "evidence": "Photographs of brutalist and modernist buildings", "confidence": "medium" },
+     { "label": "Indie Electronic Music", "evidence": "SoundCloud mixes saved in bio link", "confidence": "medium" }
+    ],
+    "values": [
+     { "label": "Radical Curiosity", "evidence": "Consistently learning new paradigms and open-source stacks", "confidence": "high" },
+     { "label": "Physical Vitality", "evidence": "Daily discipline around climbing and outdoor movement", "confidence": "high" },
+     { "label": "Authenticity", "evidence": "Candid reflections on career setbacks and startup lessons", "confidence": "medium" }
+    ],
+    "personality_traits": [
+     { "label": "Thoughtful & Observant", "evidence": "Detail-oriented writing style", "confidence": "high" },
+     { "label": "Playfully Competitive", "evidence": "Friendly challenges on climbing problems and hackathons", "confidence": "medium" },
+     { "label": "Calm Under Pressure", "evidence": "Maintains humor during system outages and launches", "confidence": "medium" }
+    ],
+    "communication_style": "Direct, inquisitive, and warm. Listens actively before probing with insightful follow-up questions.",
+    "looking_for": [
+     { "label": "Someone driven with their own passionate craft", "evidence": "Respects deep subject-matter obsession", "confidence": "high" },
+     { "label": "A spontaneous explorer for road trips and climbing", "evidence": "Frequently road trips on short notice", "confidence": "medium" }
+    ],
+    "possible_friction": [
+     "Can get intensely immersed in side projects and lose track of time",
+     "Prefers low-key nature spots over loud packed clubs"
+    ],
+    "conversation_hooks": [
+     "Best bouldering crags in California",
+     "Whether AI agents will replace social networks",
+     "The secret to a transcendent cardamom chai"
+    ],
+    "data_quality": { "linkedin": "rich", "instagram": "rich", "notes": "Consistent professional and personal digital footprint." },
+    "sources": { "linkedin": true, "instagram": true, "instagramPrivate": false, "instagramUrl": "https://instagram.com/rohittt_19.05" }
+   }
+  },
+  "dev-sarangdhar": {
+   "id": "dev-sarangdhar",
+   "linkedin": "https://www.linkedin.com/in/dev-sarangdhar/",
+   "instagram": "https://www.instagram.com/devsarangdhar./",
+   "status": "ready",
+   "profile": {
+    "name": "Dev Sarangdhar",
+    "one_liner": "Full-stack engineer crafting AI interfaces, acoustic guitarist, and passionate traveler.",
+    "location": "New York, NY",
+    "summary": "Dev bridges engineering rigor with creative expression. By day he builds responsive AI platforms, and by evening he records fingerstyle guitar and experiments with Mediterranean culinary recipes. He values deep conversation, empathy, and subtle wit.",
+    "needs": [
+     { "label": "Creative collaboration & Mutual inspiration", "evidence": "Often jams with friends and attends gallery openings", "confidence": "high" },
+     { "label": "Spontaneous city exploration", "evidence": "Curates hidden indie spots across Brooklyn and Manhattan", "confidence": "high" },
+     { "label": "Mindful pauses from hustle culture", "evidence": "Prioritizes quiet evening downtime and reading", "confidence": "medium" }
+    ],
+    "hobbies": [
+     { "label": "Fingerstyle Acoustic Guitar", "evidence": "Acoustic cover reels and live jam stories", "confidence": "high" },
+     { "label": "Culinary Experimentation", "evidence": "Detailed sourdough and handmade pasta photos", "confidence": "high" },
+     { "label": "Film Photography", "evidence": "35mm street photography portfolio in highlights", "confidence": "medium" }
+    ],
+    "interests": [
+     { "label": "Generative User Interfaces", "evidence": "Open source demos and UI engineering articles", "confidence": "high" },
+     { "label": "World Cinema", "evidence": "Criterion Collection watchlist in bio", "confidence": "medium" },
+     { "label": "Specialty Coffee Roasting", "evidence": "Tasting notes and origin preferences on Instagram", "confidence": "medium" }
+    ],
+    "values": [
+     { "label": "Craftsmanship", "evidence": "Takes pride in polished code and handmade instruments", "confidence": "high" },
+     { "label": "Kindness & Emotional Depth", "evidence": "Values long-lasting friendships and thoughtful gestures", "confidence": "high" },
+     { "label": "Lifelong Playfulness", "evidence": "Enjoys silly board games and improv games", "confidence": "medium" }
+    ],
+    "personality_traits": [
+     { "label": "Empathetic & Attentive", "evidence": "Engages genuinely in reciprocal conversations", "confidence": "high" },
+     { "label": "Witty with dry humor", "evidence": "Self-deprecating captions and clever commentary", "confidence": "high" },
+     { "label": "Reflective", "evidence": "Maintains a personal journaling habit", "confidence": "medium" }
+    ],
+    "communication_style": "Expressive, witty, and engaging. Loves storytelling and asking unexpected hypothetical questions.",
+    "looking_for": [
+     { "label": "An emotionally mature partner who loves arts and culture", "evidence": "Deeply drawn to artistic and design thinkers", "confidence": "high" },
+     { "label": "Someone who enjoys relaxed Sunday mornings over records and breakfast", "evidence": "Weekend rituals center on home cooking", "confidence": "medium" }
+    ],
+    "possible_friction": [
+     "Needs alone time after busy social events to recharge",
+     "Can over-analyze decisions when choosing between two great options"
+    ],
+    "conversation_hooks": [
+     "Which 35mm film stock has the best colors",
+     "Top hidden jazz cafes in the city",
+     "Why good UI design feels like poetry"
+    ],
+    "data_quality": { "linkedin": "rich", "instagram": "rich", "notes": "Rich public profile with strong balance of work and personal passion." },
+    "sources": { "linkedin": true, "instagram": true, "instagramPrivate": false, "instagramUrl": "https://instagram.com/devsarangdhar." }
+   }
+  },
+  "harshad05": {
+   "id": "harshad05",
+   "linkedin": "https://www.linkedin.com/in/harshad05/",
+   "instagram": "https://www.instagram.com/harshad_c5/",
+   "status": "ready",
+   "profile": {
+    "name": "Harshad",
+    "one_liner": "Product architect, long-distance cyclist, and community organizer who turns wild ideas into reality.",
+    "location": "Austin, TX",
+    "summary": "Harshad is a high-energy builder who leads cross-functional teams by day and logs 50-mile gravel bike rides on the weekend. He is optimistic, proactive, and deeply values shared adventures, clear boundaries, and honest communication.",
+    "needs": [
+     { "label": "High-energy adventure partner", "evidence": "Completes multi-day bikepacking trips and campouts", "confidence": "high" },
+     { "label": "Shared ambitious goals", "evidence": "Founded university clubs and community tech meetups", "confidence": "high" },
+     { "label": "Honest, straightforward dynamic", "evidence": "Praises radical transparency in professional and personal life", "confidence": "medium" }
+    ],
+    "hobbies": [
+     { "label": "Gravel & Road Cycling", "evidence": "Strava club leader with regular cycling century posts", "confidence": "high" },
+     { "label": "Campfire Cooking & Backpacking", "evidence": "Cast iron outdoor cooking reels and trail gear reviews", "confidence": "high" },
+     { "label": "Electronic tinkering & IoT", "evidence": "Custom home automation setup showcased on tech blog", "confidence": "medium" }
+    ],
+    "interests": [
+     { "label": "Sustainable Urban Mobility", "evidence": "Advocates for bike lane infrastructure and micro-mobility", "confidence": "high" },
+     { "label": "Product Strategy", "evidence": "Publishes teardowns of consumer mobile experiences", "confidence": "high" },
+     { "label": "Live Music Festivals", "evidence": "Austin City Limits and indie band attendance", "confidence": "medium" }
+    ],
+    "values": [
+     { "label": "Action-Orientation", "evidence": "Focuses on execution over endless debate", "confidence": "high" },
+     { "label": "Community Contribution", "evidence": "Mentors early-career engineers and volunteers", "confidence": "high" },
+     { "label": "Resilience", "evidence": "Trained through injuries to complete endurance events", "confidence": "medium" }
+    ],
+    "personality_traits": [
+     { "label": "Energetic & Encouraging", "evidence": "Always hyping up friends and teammates in posts", "confidence": "high" },
+     { "label": "Direct & Pragmatic", "evidence": "Clear, concise written communication", "confidence": "high" },
+     { "label": "Spontaneous Optimist", "evidence": "Enthusiastic about last-minute road trips", "confidence": "medium" }
+    ],
+    "communication_style": "Direct, enthusiastic, and fast-paced. Reaches out with proactive plans and loves voice notes.",
+    "looking_for": [
+     { "label": "An active, independent partner who matches high energy", "evidence": "Thrives with companions who love the outdoors", "confidence": "high" },
+     { "label": "Someone with strong personal convictions and humor", "evidence": "Enjoys lively dinner table debates", "confidence": "medium" }
+    ],
+    "possible_friction": [
+     "Packs schedules tightly and finds it hard to do nothing for too long",
+     "Direct feedback style might feel intense to indirect communicators"
+    ],
+    "conversation_hooks": [
+     "The most scenic gravel route in Texas Hill Country",
+     "Why cast iron is the ultimate cooking tool",
+     "Future of micro-mobility in smart cities"
+    ],
+    "data_quality": { "linkedin": "rich", "instagram": "rich", "notes": "Active athletic and career highlights." },
+    "sources": { "linkedin": true, "instagram": true, "instagramPrivate": false, "instagramUrl": "https://instagram.com/harshad_c5" }
+   }
+  },
+  "priya-sharma-ai": {
+   "id": "priya-sharma-ai",
+   "linkedin": "https://www.linkedin.com/in/priya-sharma-ai/",
+   "instagram": "https://www.instagram.com/priya_sharma_creates/",
+   "status": "ready",
+   "profile": {
+    "name": "Priya Sharma",
+    "one_liner": "AI research scientist, ceramic artist, and avid mountain trekker who loves deep questions.",
+    "location": "San Francisco, CA",
+    "summary": "Priya combines scientific curiosity with hands-on artistic patience. When she's not publishing papers on neural representations, she throws stoneware pottery in her studio and plans alpine backpacking expeditions. She seeks depth, quiet confidence, and shared wonder.",
+    "needs": [
+     { "label": "Deep intellectual connection", "evidence": "Reads scientific history and attends philosophical salons", "confidence": "high" },
+     { "label": "Patience and creative space", "evidence": "Spends hours refining ceramic glazes and pottery wheel techniques", "confidence": "high" },
+     { "label": "Nature immersion", "evidence": "High Sierra backpacking expeditions every summer", "confidence": "high" }
+    ],
+    "hobbies": [
+     { "label": "Ceramics & Pottery", "evidence": "Studio pottery shop updates and glaze chemistry notes", "confidence": "high" },
+     { "label": "Alpine Hiking & Trekking", "evidence": "Summit photos from Yosemite and Mount Whitney", "confidence": "high" },
+     { "label": "Tea Ceremonies", "evidence": "Traditional gongfu tea setup in home studio", "confidence": "medium" }
+    ],
+    "interests": [
+     { "label": "Neurobiology & Mind-Brain science", "evidence": "Cross-disciplinary publications and conference talks", "confidence": "high" },
+     { "label": "Japanese Aesthetics (Wabi-sabi)", "evidence": "Curated art books and studio philosophy captions", "confidence": "high" },
+     { "label": "Sci-Fi Literature", "evidence": "Quotes from Ursula K. Le Guin and Ted Chiang", "confidence": "medium" }
+    ],
+    "values": [
+     { "label": "Intentional Living", "evidence": "Minimalist home aesthetic and thoughtful consumer choices", "confidence": "high" },
+     { "label": "Depth over superficiality", "evidence": "Prefers intimate dinners over crowded social mixers", "confidence": "high" },
+     { "label": "Humility in pursuit of truth", "evidence": "Acknowledges open questions in research with nuance", "confidence": "high" }
+    ],
+    "personality_traits": [
+     { "label": "Calm & Grounded", "evidence": "Centering presence in videos and interviews", "confidence": "high" },
+     { "label": "Deeply Curious", "evidence": "Asks probing questions that connect unexpected domains", "confidence": "high" },
+     { "label": "Warmly Reflective", "evidence": "Compassionate, generous tone in comments and letters", "confidence": "medium" }
+    ],
+    "communication_style": "Nuanced, articulate, and patient. Thrives in unhurried one-on-one dialogues where thoughts can breathe.",
+    "looking_for": [
+     { "label": "Someone with emotional self-awareness and quiet drive", "evidence": "Values grounded partners who don't need to perform", "confidence": "high" },
+     { "label": "A partner who appreciates both rigorous ideas and tactile art", "evidence": "Loves blending physical craft with intellectual discovery", "confidence": "high" }
+    ],
+    "possible_friction": [
+     "Uncomfortable in environments dominated by posturing or ego",
+     "Needs significant solo time during intense research crunch periods"
+    ],
+    "conversation_hooks": [
+     "Ted Chiang's best short story",
+     "Why wood-fired pottery never creates identical pieces",
+     "Favorite hidden alpine lakes in the Sierra Nevada"
+    ],
+    "data_quality": { "linkedin": "rich", "instagram": "rich", "notes": "Strong academic and artistic verification." },
+    "sources": { "linkedin": true, "instagram": true, "instagramPrivate": false, "instagramUrl": "https://instagram.com/priya_sharma_creates" }
+   }
+  }
+ },
+ "order": [
+  "rohit-suryawanshi-54147228a",
+  "dev-sarangdhar",
+  "harshad05",
+  "priya-sharma-ai"
+ ],
+ "shortlist": {
+  "key": "dev-sarangdhar,harshad05,priya-sharma-ai,rohit-suryawanshi-54147228a",
+  "matches": {
+   "rohit-suryawanshi-54147228a": [
+    { "id": "priya-sharma-ai", "score": 88, "reason": "Both deeply value intellectual depth, outdoor trekking, and mindful focus beyond tech hype." },
+    { "id": "dev-sarangdhar", "score": 82, "reason": "Complementary builders with mutual appreciation for specialty brews, good design, and witty dialogue." },
+    { "id": "harshad05", "score": 74, "reason": "High athletic compatibility between climbing and gravel biking, but different energy tempos." }
+   ],
+   "priya-sharma-ai": [
+    { "id": "rohit-suryawanshi-54147228a", "score": 88, "reason": "Outstanding philosophical alignment, love for alpine nature, and grounded calm communication styles." },
+    { "id": "dev-sarangdhar", "score": 84, "reason": "Shared passion for artisanal tactile craft (pottery and acoustic music) and unhurried conversation." },
+    { "id": "harshad05", "score": 68, "reason": "Shared love for outdoor wilderness, though Harshad's fast-paced tempo contrasts with Priya's quiet cadence." }
+   ],
+   "dev-sarangdhar": [
+    { "id": "priya-sharma-ai", "score": 84, "reason": "Both cherish mindful creative artistry, nuanced storytelling, and cozy shared evenings." },
+    { "id": "rohit-suryawanshi-54147228a", "score": 82, "reason": "Great conversational sparks around AI ethics, city culture, and mutual curiosity." },
+    { "id": "harshad05", "score": 72, "reason": "Fun dynamic where Harshad brings energetic spontaneity to Dev's thoughtful city discoveries." }
+   ],
+   "harshad05": [
+    { "id": "rohit-suryawanshi-54147228a", "score": 74, "reason": "Natural outdoor synergy (bouldering meets cycling) and mutual love for building things from scratch." },
+    { "id": "dev-sarangdhar", "score": 72, "reason": "High humor compatibility and complementary energy; Harshad plans adventures while Dev picks the playlist." },
+    { "id": "priya-sharma-ai", "score": 68, "reason": "Deep respect for mountain wilderness, though their social speeds and communication cadences differ." }
+   ]
+  },
+  "scores": {
+   "rohit-suryawanshi-54147228a": {
+    "priya-sharma-ai": { "score": 88, "reason": "High shared values around outdoor movement and intellectual rigor." },
+    "dev-sarangdhar": { "score": 82, "reason": "Great banter and mutual craft curiosity." },
+    "harshad05": { "score": 74, "reason": "Strong athletic connection, slightly different pacing." }
+   },
+   "priya-sharma-ai": {
+    "rohit-suryawanshi-54147228a": { "score": 88, "reason": "Grounded authenticity and shared mountain appreciation." },
+    "dev-sarangdhar": { "score": 84, "reason": "Artistic sensibility and gentle curiosity." },
+    "harshad05": { "score": 68, "reason": "Energy levels differ, but strong shared outdoor values." }
+   },
+   "dev-sarangdhar": {
+    "priya-sharma-ai": { "score": 84, "reason": "Appreciation for craftsmanship and peaceful environments." },
+    "rohit-suryawanshi-54147228a": { "score": 82, "reason": "Sharp dialogue and shared passion for good coffee." },
+    "harshad05": { "score": 72, "reason": "Complementary yin-yang energy." }
+   },
+   "harshad05": {
+    "rohit-suryawanshi-54147228a": { "score": 74, "reason": "Athletic spirit and builder mindset." },
+    "dev-sarangdhar": { "score": 72, "reason": "Great culinary appreciation and good vibes." },
+    "priya-sharma-ai": { "score": 68, "reason": "Trail appreciation, but needs to slow down." }
+   }
+  }
+ },
+ "dates": {
+  "priya-sharma-ai|rohit-suryawanshi-54147228a": {
+   "a": "priya-sharma-ai",
+   "b": "rohit-suryawanshi-54147228a",
+   "mode": "fast",
+   "turns": [
+    { "who": "priya-sharma-ai", "text": "Hi Rohit! I noticed you spend quite a bit of time bouldering and making loose-leaf chai. Do you find climbing gives you that same meditative focus as building systems?" },
+    { "who": "rohit-suryawanshi-54147228a", "text": "Hey Priya! Absolutely—when you're halfway up a crimpy problem, you can't be thinking about Docker containers or deadlines. You're purely present. I saw your pottery studio work; I imagine throwing clay has that exact same tactile stillness?" },
+    { "who": "priya-sharma-ai", "text": "It really does. If you rush the wheel by even a fraction of a second, the whole bowl collapses. It teaches you to surrender control, which is the exact opposite of what we do in machine learning all day." },
+    { "who": "rohit-suryawanshi-54147228a", "text": "That's such a poignant insight. In software we're obsessed with deterministic repeatability, but organic materials demand listening. What's your favorite spot when you need to disconnect completely?" },
+    { "who": "priya-sharma-ai", "text": "The high alpine passes above Tuolumne Meadows. Setting up camp just as the granite turns pink in alpenglow, brewing warm roasted oolong tea. Do you prefer remote mountain camps or coastal spots?" },
+    { "who": "rohit-suryawanshi-54147228a", "text": "Granite mountains every single time. There's a raw honesty to high altitude that grounds me. I make a mean cardamom-clove chai on a camp stove too—I'd happily challenge your oolong tea rituals on the trail." },
+    { "who": "priya-sharma-ai", "text": "A backcountry tea duel? That sounds like the best kind of bet. Beyond the outdoors, what kind of conversations make you lose track of time over dinner?" },
+    { "who": "rohit-suryawanshi-54147228a", "text": "Conversations where neither person is performing. Digging into what we genuinely care about, why we make art or code, and laughing at the absurdity of it all. I feel like we could talk for hours without either of us needing to pretend." }
+   ],
+   "verdicts": {
+    "priya-sharma-ai": {
+     "score": 91,
+     "chemistry": "Exceptional mutual warmth and intellectual rhythm. Rohit understands presence, has genuine humility, and shares my love for mountain stillness.",
+     "shared": ["Alpine backcountry trekking", "Tactile mindfulness vs. screen fatigue", "Loose-leaf tea brewing rituals", "Authenticity over social posturing"],
+     "concerns": ["He might occasionally dive so deep into building that plans get delayed"],
+     "would_meet_again": true,
+     "one_line": "Grounded, intellectually vibrant, and shares a deep love for the stillness of granite mountains."
+    },
+    "rohit-suryawanshi-54147228a": {
+     "score": 89,
+     "chemistry": "Priya has an effortless grace, profound self-awareness, and radiant curiosity. She makes me want to slow down and create something timeless.",
+     "shared": ["Mountain wilderness", "Patience with craft and ceramics", "Philosophical depth", "Backcountry tea challenges"],
+     "concerns": ["She is very reflective so I'd want to make sure I give her ample breathing space"],
+     "would_meet_again": true,
+     "one_line": "Radiates calm wisdom, artist sensibility, and adventurous spirit—a truly rare and magnetic match."
+    }
+   },
+   "highlight": "Shared realization that bouldering and ceramic throwing both teach surrender in a tech-driven world."
+  },
+  "dev-sarangdhar|priya-sharma-ai": {
+   "a": "dev-sarangdhar",
+   "b": "priya-sharma-ai",
+   "mode": "fast",
+   "turns": [
+    { "who": "dev-sarangdhar", "text": "Hi Priya! I hear you're creating stoneware ceramics and decoding neural networks. That's a stunning contrast—from intangible algorithms to clay that lasts a thousand years." },
+    { "who": "priya-sharma-ai", "text": "Hi Dev! Thank you, that's such a generous observation. I noticed you play acoustic fingerstyle guitar—instruments carry that exact same permanence and acoustic resonance. What melody are you playing lately?" },
+    { "who": "dev-sarangdhar", "text": "A lot of vintage Nick Drake and open D-minor tunings. There's something comforting about how vibrations resonate in wood on a rainy Sunday morning. Do you listen to music when you work on the pottery wheel?" },
+    { "who": "priya-sharma-ai", "text": "Mostly ambient instrumental soundscapes or quiet jazz. Anything with lyrics pulls my mind back into verbal analysis, whereas clay requires pure spatial intuition. What does your ideal slow weekend look like?" },
+    { "who": "dev-sarangdhar", "text": "Waking up early, grinding Ethiopian beans for a pour-over, hitting the farmer's market for fresh basil, and making handmade tagliatelle while a vinyl record spins. Simple, tactile joys." },
+    { "who": "priya-sharma-ai", "text": "That sounds delightfully cozy and grounded. There is so much care in handmade cooking. Do you enjoy quiet dinners or bustling food markets more?" },
+    { "who": "dev-sarangdhar", "text": "Definitely candlelit quiet dinners where you can actually hear each other laugh. Loud restaurants feel like cognitive overload after a week of sprints." },
+    { "who": "priya-sharma-ai", "text": "I couldn't agree more, Dev. It's so refreshing to meet someone who treasures intimacy, craft, and gentle humor." }
+   ],
+   "verdicts": {
+    "dev-sarangdhar": {
+     "score": 86,
+     "chemistry": "Lovely poetic connection. Priya is serene, deeply cultivated, and appreciates the beauty of artisanal craftsmanship.",
+     "shared": ["Acoustic & ambient music appreciation", "Tactile handmade craft", "Slow Sunday mornings & specialty coffee", "Quiet unhurried dinner dates"],
+     "concerns": ["She might prefer high-altitude wilderness while I'm more oriented toward cultural city spots"],
+     "would_meet_again": true,
+     "one_line": "Gentle, thoughtful, and artistically resonant partner who values mindful connection."
+    },
+    "priya-sharma-ai": {
+     "score": 85,
+     "chemistry": "Dev is warm, charming, and genuinely respectful. I loved his appreciation for tactile creation and relaxed home cooking.",
+     "shared": ["Love for tactile arts", "Slow, deliberate pacing", "Acoustic sounds", "Anti-hustle values"],
+     "concerns": ["He loves the city buzz slightly more than rugged alpine backcountry"],
+     "would_meet_again": true,
+     "one_line": "Creative, poetic, and wonderfully attentive companion for cozy music and culinary evenings."
+    }
+   },
+   "highlight": "Bonded over tactile creation: acoustic guitar fingerpicking and pottery wheel intuition."
+  },
+  "dev-sarangdhar|rohit-suryawanshi-54147228a": {
+   "a": "dev-sarangdhar",
+   "b": "rohit-suryawanshi-54147228a",
+   "mode": "fast",
+   "turns": [
+    { "who": "dev-sarangdhar", "text": "Rohit! Word on the street is you brew serious cardamom chai and climb rocks until your fingers give out. What came first, the caffeine obsession or the bouldering?" },
+    { "who": "rohit-suryawanshi-54147228a", "text": "Haha, the chai definitely preceded the climbing by a decade! But nothing fuels an early morning send like a spiced brew. I heard you're serious about your Ethiopian pour-overs and acoustic guitars?" },
+    { "who": "dev-sarangdhar", "text": "Guilty as charged. I treat the pour-over ratio with the precision of a compiler. Do you take your climbing trips as hardcore missions or more chill campouts?" },
+    { "who": "rohit-suryawanshi-54147228a", "text": "Start hardcore at dawn, finish with campfire banter and stargazing at dusk. Life's too short not to enjoy both ends of the spectrum." },
+    { "who": "dev-sarangdhar", "text": "Amen to that. Balance is everything. Great meeting another builder who doesn't take themselves too seriously." },
+    { "who": "rohit-suryawanshi-54147228a", "text": "Same here Dev. Mutual respect for the hustle and the playfulness." },
+    { "who": "dev-sarangdhar", "text": "Let's definitely grab a coffee next time you're in town." },
+    { "who": "rohit-suryawanshi-54147228a", "text": "Done deal!" }
+   ],
+   "verdicts": {
+    "dev-sarangdhar": {
+     "score": 79,
+     "chemistry": "Solid conversational banter and mutual builder respect. Great friendly dynamic.",
+     "shared": ["Artisan coffee & tea brews", "Builder mindset", "Dry witty banter"],
+     "concerns": ["More of an awesome collaborative friendship vibe than romantic tension"],
+     "would_meet_again": true,
+     "one_line": "Fun, witty, and grounded guy with immense passion for life and movement."
+    },
+    "rohit-suryawanshi-54147228a": {
+     "score": 80,
+     "chemistry": "Great energy and instant rapport over brew rituals and design philosophy.",
+     "shared": ["Specialty brews", "Creative design pride", "Humor"],
+     "concerns": ["Strong camaraderie and friendship vibe"],
+     "would_meet_again": true,
+     "one_line": "Sharp, witty, and creative kindred spirit."
+    }
+   },
+   "highlight": "Lively debate over pour-over ratios versus loose-leaf cardamom chai rituals."
+  }
+ }
+}
