@@ -3,6 +3,7 @@
   "appName": "moots",
   "webDir": "out",
   "server": {
+    "url": "https://moots-agenticdatingplatform.vercel.app",
     "cleartext": true
   }
 }
