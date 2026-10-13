@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Views } from "../components/Views";
 import { Logo } from "../components/Logo";
+import { Auth } from "../components/Auth";
 import { parseEntries, pool, post } from "../lib/client";
 import { pairKey, readyIds } from "../lib/rank";
 import { PRESETS, getPresetText } from "../lib/presets";
@@ -11,6 +12,8 @@ const EMPTY = { people: {}, order: [], shortlist: null, dates: {} };
 const TOP_K = 4;
 
 export default function Home() {
+  const [currentUser, setCurrentUser] = useState(null);
+  const [authLoading, setAuthLoading] = useState(true);
   const [text, setText] = useState("");
   const [state, setState] = useState(EMPTY);
   const [log, setLog] = useState([]);
@@ -24,6 +27,16 @@ export default function Home() {
   const ref = useRef(EMPTY);
 
   useEffect(() => {
+    try {
+      const sessionUser = JSON.parse(
+        localStorage.getItem("moots-current-user") || "null"
+      );
+      if (sessionUser) {
+        setCurrentUser(sessionUser);
+      }
+    } catch {}
+    setAuthLoading(false);
+
     try {
       const saved = JSON.parse(localStorage.getItem(KEY) || "null");
       if (saved?.people) {
@@ -40,6 +53,13 @@ export default function Home() {
       }
     } catch {}
   }, []);
+
+  function handleSignOut() {
+    try {
+      localStorage.removeItem("moots-current-user");
+    } catch {}
+    setCurrentUser(null);
+  }
 
   const update = (fn) => {
     ref.current = fn(ref.current);
@@ -333,17 +353,54 @@ export default function Home() {
   const count = parseEntries(text).length;
   const profilesReady = readyIds(state).length;
 
+  if (authLoading) {
+    return (
+      <div className="auth-loading-splash">
+        <div className="splash-spinner-box">
+          <div className="beacon-dot" style={{ width: "18px", height: "18px" }} />
+          <span>loading moots ✦</span>
+        </div>
+      </div>
+    );
+  }
+
+  if (!currentUser) {
+    return <Auth onLogin={(user) => setCurrentUser(user)} />;
+  }
+
   return (
     <main className="app-container">
       {/* Header */}
       <header className="site-header">
         <Logo />
-        <div className="header-status">
-          <span className="beacon-dot" />
-          <span>your agent is on a date rn</span>
-          <a className="btn ghost" href="/demo" style={{ marginLeft: "8px", padding: "6px 14px", fontSize: "13px" }}>
-            view demo
-          </a>
+        <div className="header-actions-group">
+          <div className="user-profile-badge">
+            <span className="user-avatar-dot">
+              {currentUser.name?.[0]?.toUpperCase() || "✦"}
+            </span>
+            <span className="user-name-text">
+              {currentUser.name?.toLowerCase() || "friend"}
+            </span>
+            <button
+              type="button"
+              className="btn-signout"
+              onClick={handleSignOut}
+              title="sign out"
+            >
+              sign out
+            </button>
+          </div>
+          <div className="header-status">
+            <span className="beacon-dot" />
+            <span>your agent is on a date rn</span>
+            <a
+              className="btn ghost header-demo-link"
+              href="/demo"
+              style={{ marginLeft: "8px", padding: "6px 14px", fontSize: "13px" }}
+            >
+              view demo
+            </a>
+          </div>
         </div>
       </header>
 

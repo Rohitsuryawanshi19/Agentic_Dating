@@ -1,5 +1,14 @@
 import "./globals.css";
 
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+  viewportFit: "cover",
+  themeColor: "#FFD6E8",
+};
+
 export const metadata = {
   title: "moots · your agent is on a date rn",
   description: "ai agents date on your behalf. find your moots.",

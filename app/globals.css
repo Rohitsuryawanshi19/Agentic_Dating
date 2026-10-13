@@ -1151,3 +1151,519 @@ textarea:focus, select:focus,
   gap: 8px;
   margin-top: 8px;
 }
+
+/* ==========================================================================
+   AUTH SCREEN (SIGN IN & CREATE ACCOUNT) - SOFT Y2K SCRAPBOOK
+   ========================================================================== */
+.auth-viewport-wrapper {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: max(20px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) max(24px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
+  position: relative;
+  z-index: 2;
+}
+
+.auth-card {
+  background: var(--cream-paper-80);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: var(--border-ink);
+  border-radius: 24px;
+  box-shadow: var(--shadow-hard-lg);
+  padding: 36px 32px 30px;
+  width: 100%;
+  max-width: 440px;
+  position: relative;
+  animation: authFadeUp 0.35s ease-out;
+}
+
+@keyframes authFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.auth-tape {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-2deg);
+  width: 90px;
+  height: 24px;
+  background: rgba(255, 243, 176, 0.85);
+  border: 1px dashed rgba(27, 20, 38, 0.3);
+  box-shadow: 0 1px 3px rgba(27, 20, 38, 0.08);
+  z-index: 3;
+}
+
+.auth-header {
+  text-align: center;
+  margin-bottom: 22px;
+}
+
+.auth-header .brand-logo {
+  justify-content: center;
+}
+
+.auth-tagline {
+  font-family: var(--font-handwriting);
+  font-size: 20px;
+  color: var(--ink-soft);
+  margin-top: 6px;
+  margin-bottom: 0;
+}
+
+.auth-tabs {
+  display: flex;
+  background: rgba(217, 200, 255, 0.45);
+  border: var(--border-ink);
+  border-radius: var(--radius-pill);
+  padding: 4px;
+  margin-bottom: 22px;
+  gap: 4px;
+}
+
+.auth-tab {
+  flex: 1;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  border-radius: var(--radius-pill);
+  padding: 9px 12px;
+  font-size: 14.5px;
+  font-weight: 700;
+  color: var(--ink-soft);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.auth-tab:hover:not(.active) {
+  transform: none;
+  box-shadow: none;
+  color: var(--ink);
+}
+
+.auth-tab.active {
+  background: var(--hot-pink);
+  color: #FFFFFF;
+  box-shadow: 2px 2px 0 var(--ink);
+  transform: none;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.auth-field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  text-align: left;
+}
+
+.auth-field label {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ink);
+  text-transform: lowercase;
+  letter-spacing: 0.02em;
+}
+
+.auth-field input {
+  background: #FFFFFF;
+  border: var(--border-ink);
+  border-radius: 14px;
+  padding: 13px 16px;
+  font-family: var(--font-body);
+  font-size: 15.5px;
+  color: var(--ink);
+  box-shadow: inset 2px 2px 0 rgba(27, 20, 38, 0.06);
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.auth-field input:focus {
+  border-color: var(--hot-pink);
+  box-shadow: 0 0 0 3px rgba(255, 79, 163, 0.2);
+}
+
+.auth-submit-btn {
+  width: 100%;
+  padding: 13px 20px;
+  font-size: 16px;
+  font-weight: 800;
+  margin-top: 6px;
+}
+
+.auth-divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 18px 0 14px;
+  color: var(--ink-soft);
+  font-size: 12.5px;
+  font-weight: 600;
+}
+
+.auth-divider::before,
+.auth-divider::after {
+  content: "";
+  flex: 1;
+  border-bottom: 1.5px dashed rgba(27, 20, 38, 0.18);
+}
+
+.auth-divider span {
+  padding: 0 10px;
+}
+
+.auth-guest-btn {
+  width: 100%;
+  padding: 11px 18px;
+  font-size: 14px;
+}
+
+.auth-footer-note {
+  font-size: 12px;
+  color: var(--ink-soft);
+  text-align: center;
+  line-height: 1.45;
+  margin-top: 18px;
+  margin-bottom: 0;
+}
+
+.auth-alert {
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: var(--border-ink);
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 14px;
+  box-shadow: var(--shadow-hard-sm);
+}
+
+.auth-alert.error {
+  background: #FFE4E6;
+  color: #9F1239;
+}
+
+.auth-alert.success {
+  background: #DCFCE7;
+  color: #14532D;
+}
+
+.auth-loading-splash {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--cream-paper);
+}
+
+.splash-spinner-box {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--cream-paper-80);
+  border: var(--border-ink);
+  padding: 14px 24px;
+  border-radius: var(--radius-pill);
+  box-shadow: var(--shadow-hard-md);
+  font-weight: 800;
+}
+
+/* ==========================================================================
+   USER PROFILE IN HEADER
+   ========================================================================== */
+.header-actions-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.user-profile-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--blush);
+  border: var(--border-ink);
+  border-radius: var(--radius-pill);
+  padding: 6px 14px;
+  box-shadow: var(--shadow-hard-sm);
+}
+
+.user-avatar-dot {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--hot-pink);
+  color: #FFFFFF;
+  display: grid;
+  place-items: center;
+  font-size: 12px;
+  font-weight: 900;
+  border: 1px solid var(--ink);
+}
+
+.user-name-text {
+  font-size: 13.5px;
+  font-weight: 800;
+  color: var(--ink);
+  max-width: 120px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.btn-signout {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  color: var(--ink-soft);
+  font-size: 11.5px;
+  font-weight: 700;
+  padding: 2px 4px;
+  cursor: pointer;
+  border-radius: 4px;
+  text-decoration: underline;
+}
+
+.btn-signout:hover {
+  transform: none;
+  box-shadow: none;
+  color: var(--hot-pink);
+}
+
+/* ==========================================================================
+   SAMSUNG GALAXY S-SERIES (S21 FE 5G, S20, S21, S22, S23, S24) OPTIMIZATIONS
+   Screen Width: 360px - 412px | Height: 800px - 915px | 19.5:9 / 20:9 Aspect
+   ========================================================================== */
+@media screen and (max-width: 480px) {
+  :root {
+    --shadow-hard-md: 2.5px 2.5px 0 var(--ink);
+    --shadow-hard-lg: 3.5px 3.5px 0 var(--ink);
+  }
+
+  body {
+    -webkit-tap-highlight-color: transparent;
+    overscroll-behavior-y: none;
+  }
+
+  .app-container {
+    padding-top: max(14px, env(safe-area-inset-top));
+    padding-bottom: max(32px, env(safe-area-inset-bottom));
+    padding-left: max(12px, env(safe-area-inset-left));
+    padding-right: max(12px, env(safe-area-inset-right));
+    width: 100%;
+    overflow-x: hidden;
+  }
+
+  /* Header adjustments for 360px viewport */
+  .site-header {
+    padding: 14px 16px;
+    margin-bottom: 18px;
+    border-radius: 18px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .brand-logo {
+    justify-content: center;
+  }
+
+  .brand-name {
+    font-size: 34px;
+  }
+
+  .brand-sticker {
+    width: 38px;
+    height: 38px;
+    font-size: 19px;
+  }
+
+  .header-actions-group {
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .user-profile-badge {
+    padding: 5px 10px;
+    font-size: 12px;
+  }
+
+  .user-name-text {
+    max-width: 90px;
+  }
+
+  .header-status {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+
+  .header-demo-link {
+    display: none; /* Keep header compact on mobile */
+  }
+
+  /* Hero Card for Samsung One UI Reachability */
+  .hero-card {
+    padding: 22px 18px;
+    margin-bottom: 18px;
+    border-radius: 18px;
+  }
+
+  .hero-card::before {
+    left: 24px;
+    width: 60px;
+    height: 18px;
+  }
+
+  .hero-title {
+    font-size: 28px;
+    line-height: 1.2;
+    margin-bottom: 10px;
+  }
+
+  .hero-subtitle {
+    font-size: 15px;
+    line-height: 1.55;
+    margin-bottom: 14px;
+  }
+
+  .hero-features {
+    gap: 8px;
+  }
+
+  .feature-pill {
+    font-size: 12px;
+    padding: 4px 10px;
+  }
+
+  /* Input Card & Sidebar */
+  .landscape-input-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .input-sidebar h3 {
+    font-size: 24px !important;
+  }
+
+  .presets-bar {
+    gap: 6px;
+  }
+
+  .preset-chip {
+    padding: 7px 12px;
+    font-size: 12.5px;
+    min-height: 38px;
+  }
+
+  .neuro-textarea-wrapper textarea {
+    font-size: 15px;
+    padding: 14px;
+    border-radius: 16px;
+    min-height: 140px;
+  }
+
+  /* Samsung One UI One-Handed Reach Buttons */
+  button, .btn, .neuro-btn {
+    min-height: 46px; /* Thumb-friendly tap targets */
+    font-size: 14.5px;
+    padding: 10px 18px;
+  }
+
+  .actions {
+    gap: 8px;
+  }
+
+  /* Views Navigation Tabs */
+  .tabs-bar, .sub-nav-tabs {
+    gap: 6px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: 4px;
+  }
+
+  .tabs-bar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .nav-tab-pill {
+    padding: 8px 14px;
+    font-size: 13.5px;
+    flex-shrink: 0;
+    min-height: 42px;
+  }
+
+  /* Profile Cards on Samsung S21 FE */
+  .profile-card, .profile-polaroid {
+    padding: 20px 16px;
+    border-radius: 18px;
+    transform: none !important; /* Avoid rotation on narrow 360px screen for readability */
+  }
+
+  .profile-card::before {
+    left: 20px;
+    width: 55px;
+    height: 18px;
+  }
+
+  .card-title-group h3,
+  .head h3,
+  .card h3,
+  .profile h3 {
+    font-size: 25px;
+  }
+
+  /* Chat Bubbles on 360px screen */
+  .chat-bubble {
+    max-width: 88%;
+    padding: 12px 16px;
+    font-size: 14.5px;
+  }
+
+  .chat-agent-label {
+    font-size: 18px;
+  }
+
+  /* Mutual Matches Card */
+  .matches-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .match-celebration-card {
+    padding: 20px 16px;
+    border-radius: 18px;
+  }
+
+  /* Auth Card adjustments for Samsung mobile */
+  .auth-viewport-wrapper {
+    padding: max(16px, env(safe-area-inset-top)) 12px max(24px, env(safe-area-inset-bottom)) 12px;
+  }
+
+  .auth-card {
+    padding: 28px 20px 24px;
+    border-radius: 20px;
+    box-shadow: var(--shadow-hard-md);
+  }
+
+  .auth-field input {
+    font-size: 16px; /* Crucial: 16px prevents mobile browser zoom */
+    padding: 12px 14px;
+    min-height: 46px;
+  }
+}
