@@ -1667,3 +1667,776 @@ textarea:focus, select:focus,
     min-height: 46px;
   }
 }
+
+/* ==========================================================================
+   IMAGE 1: RICH RANKINGS LEADERBOARD & ANALYTICS SIDEBAR (SOFT Y2K THEME)
+   ========================================================================== */
+
+.rankings-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.rankings-top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 14px;
+  padding: 4px 2px;
+}
+
+.rankings-sticker-badge {
+  display: inline-flex;
+  align-items: center;
+  background: var(--lilac);
+  color: var(--ink);
+  font-size: 11.5px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 3px 10px;
+  border-radius: 999px;
+  border: 1.5px solid var(--ink);
+  box-shadow: 1.5px 1.5px 0 var(--ink);
+  margin-bottom: 6px;
+}
+
+.rankings-title {
+  font-family: var(--font-heading);
+  font-size: 32px;
+  font-weight: 800;
+  line-height: 1.1;
+  color: var(--ink);
+}
+
+.rankings-filter-pills {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.filter-pill-btn {
+  background: var(--cream-paper);
+  color: var(--ink);
+  border: 1.5px solid var(--ink);
+  border-radius: 999px;
+  padding: 6px 14px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 2px 2px 0 var(--ink);
+  transition: all 0.15s ease;
+}
+
+.filter-pill-btn:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0 var(--ink);
+}
+
+.filter-pill-btn.active {
+  background: var(--hot-pink);
+  color: #fff;
+  box-shadow: 2px 2px 0 var(--ink);
+}
+
+.rankings-layout-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  gap: 18px;
+  align-items: start;
+}
+
+.rankings-table-card {
+  padding: 18px 20px 22px;
+  background: var(--cream-paper);
+  border: 2px solid var(--ink);
+  border-radius: 20px;
+  box-shadow: var(--shadow-hard-md);
+  position: relative;
+  overflow: hidden;
+}
+
+.rankings-table-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1.5px dashed rgba(27, 20, 38, 0.15);
+  flex-wrap: wrap;
+}
+
+.rankings-table-wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.rankings-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 8px; /* Floating rows aesthetic */
+}
+
+.rankings-table thead th {
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ink-soft);
+  padding: 6px 12px;
+  border: none;
+}
+
+.rank-row {
+  background: #ffffff;
+  border: 1.5px solid rgba(27, 20, 38, 0.14);
+  border-radius: 14px;
+  transition: all 0.18s ease;
+}
+
+.rank-row td {
+  padding: 12px 14px;
+  vertical-align: middle;
+  border-top: 1.5px solid rgba(27, 20, 38, 0.12);
+  border-bottom: 1.5px solid rgba(27, 20, 38, 0.12);
+}
+
+.rank-row td:first-child {
+  border-left: 1.5px solid rgba(27, 20, 38, 0.12);
+  border-top-left-radius: 14px;
+  border-bottom-left-radius: 14px;
+}
+
+.rank-row td:last-child {
+  border-right: 1.5px solid rgba(27, 20, 38, 0.12);
+  border-top-right-radius: 14px;
+  border-bottom-right-radius: 14px;
+}
+
+.rank-row:hover {
+  background: #fffdfa;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(27, 20, 38, 0.06);
+}
+
+/* Row #1 Gold Highlight from Image 1 */
+.rank-row-top {
+  background: rgba(255, 243, 176, 0.42) !important;
+  box-shadow: 0 4px 16px rgba(245, 158, 11, 0.22) !important;
+}
+
+.rank-row-top td {
+  border-top: 2px solid #EAB308 !important;
+  border-bottom: 2px solid #EAB308 !important;
+}
+
+.rank-row-top td:first-child {
+  border-left: 2px solid #EAB308 !important;
+}
+
+.rank-row-top td:last-child {
+  border-right: 2px solid #EAB308 !important;
+}
+
+/* Rank Badges */
+.rank-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 13.5px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1.5px solid var(--ink);
+}
+
+.rank-badge.gold-crown {
+  background: var(--butter);
+  color: #B45309;
+  border-color: #B45309;
+  box-shadow: 1.5px 1.5px 0 #B45309;
+  font-size: 14.5px;
+  font-weight: 900;
+}
+
+.rank-badge.silver-medal {
+  background: #F1F5F9;
+  color: #475569;
+  border-color: #475569;
+  box-shadow: 1.5px 1.5px 0 #475569;
+}
+
+.rank-badge.bronze-medal {
+  background: #FFEDD5;
+  color: #C2410C;
+  border-color: #C2410C;
+  box-shadow: 1.5px 1.5px 0 #C2410C;
+}
+
+.rank-badge.plain-rank {
+  background: transparent;
+  border: none;
+  color: var(--ink-soft);
+  font-size: 14px;
+}
+
+/* Candidate Column */
+.candidate-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.candidate-avatar {
+  position: relative;
+  width: 40px;
+  height: 44px;
+  background: var(--blush);
+  border: 1.8px solid var(--ink);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 18px;
+  color: var(--ink);
+  box-shadow: 1.5px 1.5px 0 var(--ink);
+  flex-shrink: 0;
+}
+
+.status-dot-green {
+  position: absolute;
+  bottom: -3px;
+  right: -3px;
+  width: 10px;
+  height: 10px;
+  background: #10B981;
+  border: 2px solid #fff;
+  border-radius: 50%;
+}
+
+.candidate-meta {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.candidate-name-row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.candidate-name {
+  font-weight: 800;
+  font-size: 15px;
+  color: var(--ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.verified-sparkle {
+  color: var(--hot-pink);
+  font-size: 13px;
+}
+
+.candidate-one-liner {
+  font-size: 12px;
+  color: var(--ink-soft);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 170px;
+}
+
+/* Direct Match Dual Avatar Capsule */
+.dual-avatar-capsule {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  background: var(--cream-paper);
+  border: 1.5px solid var(--ink);
+  border-radius: 999px;
+  padding: 3px 6px;
+  box-shadow: 1.5px 1.5px 0 var(--ink);
+}
+
+.dual-avatar-chip {
+  width: 22px;
+  height: 22px;
+  background: var(--lilac);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--ink);
+}
+
+.dual-avatar-arrow {
+  font-size: 11px;
+  color: var(--hot-pink);
+  font-weight: 800;
+}
+
+.direct-match-subname {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--ink-soft);
+  margin-top: 3px;
+}
+
+/* Key Moment & Progress Meter */
+.moment-quote-text {
+  font-size: 13px;
+  font-style: italic;
+  color: var(--ink);
+  line-height: 1.4;
+  margin-bottom: 5px;
+  max-width: 280px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.moment-meter-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.mini-meter-track {
+  flex: 1;
+  height: 7px;
+  background: rgba(27, 20, 38, 0.09);
+  border-radius: 999px;
+  overflow: hidden;
+  border: 1px solid rgba(27, 20, 38, 0.12);
+}
+
+.mini-meter-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #10B981 0%, #34D399 100%);
+  border-radius: 999px;
+}
+
+.mini-meter-pill {
+  font-size: 11px;
+  font-weight: 800;
+  color: #059669;
+}
+
+/* Compatibility Cell */
+.compat-num {
+  font-family: var(--font-heading);
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--ink);
+  line-height: 1;
+}
+
+.badge-moot-glow {
+  display: inline-block;
+  background: var(--hot-pink);
+  color: #fff;
+  font-size: 10.5px;
+  font-weight: 800;
+  padding: 2px 7px;
+  border-radius: 999px;
+  margin-top: 3px;
+}
+
+.badge-spark-soft {
+  display: inline-block;
+  background: var(--lilac);
+  color: var(--ink);
+  font-size: 10px;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 999px;
+  margin-top: 3px;
+}
+
+.date-action-btn {
+  padding: 5px 12px;
+  font-size: 12.5px;
+  border-radius: 999px;
+}
+
+/* Sidebar Styling matching Image 1 */
+.rankings-sidebar-card {
+  padding: 18px;
+  background: var(--cream-paper);
+  border: 2px solid var(--ink);
+  border-radius: 20px;
+  box-shadow: var(--shadow-hard-md);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.sidebar-search-box {
+  display: flex;
+  align-items: center;
+  background: #ffffff;
+  border: 1.5px solid var(--ink);
+  border-radius: 999px;
+  padding: 6px 12px;
+  gap: 8px;
+  box-shadow: 1.5px 1.5px 0 var(--ink);
+}
+
+.sidebar-search-input {
+  border: none;
+  background: transparent;
+  outline: none;
+  font-family: var(--font-body);
+  font-size: 13.5px;
+  color: var(--ink);
+  width: 100%;
+}
+
+.sidebar-search-clear {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: var(--ink-soft);
+  font-size: 13px;
+}
+
+.sidebar-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.sidebar-title {
+  font-size: 13.5px;
+  font-weight: 800;
+  color: var(--ink);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.sidebar-count {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--ink-soft);
+}
+
+.sidebar-moots-list {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.sidebar-moot-row {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  background: #ffffff;
+  border: 1.5px solid var(--ink);
+  border-radius: 12px;
+  padding: 8px 10px;
+  cursor: pointer;
+  box-shadow: 1.5px 1.5px 0 var(--ink);
+  transition: all 0.15s ease;
+}
+
+.sidebar-moot-row:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 2.5px 2.5px 0 var(--ink);
+}
+
+.sidebar-moot-rank {
+  font-size: 12px;
+  font-weight: 900;
+  color: var(--hot-pink);
+}
+
+.sidebar-moot-names {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-moot-names b {
+  font-size: 13px;
+  color: var(--ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sidebar-moot-names small {
+  font-size: 11px;
+}
+
+/* SVG Wave Chart */
+.chemistry-wave-container {
+  background: #ffffff;
+  border: 1.5px solid var(--ink);
+  border-radius: 14px;
+  padding: 10px 12px;
+  box-shadow: 1.5px 1.5px 0 var(--ink);
+}
+
+.wave-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.wave-title {
+  font-size: 12.5px;
+  font-weight: 800;
+  color: var(--ink);
+}
+
+.wave-badge {
+  font-size: 11px;
+  font-weight: 800;
+  background: var(--blush);
+  color: var(--hot-pink);
+  padding: 2px 7px;
+  border-radius: 999px;
+}
+
+.wave-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.wave-x-labels {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 4px;
+}
+
+.wave-x-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--ink-soft);
+}
+
+.cohort-stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 7px;
+}
+
+.stat-pill-box {
+  background: #ffffff;
+  border: 1.5px solid var(--ink);
+  border-radius: 12px;
+  padding: 8px;
+  text-align: center;
+  box-shadow: 1.5px 1.5px 0 var(--ink);
+}
+
+.stat-val {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: 20px;
+  font-weight: 900;
+  color: var(--ink);
+  line-height: 1;
+}
+
+.stat-lbl {
+  font-size: 10.5px;
+  font-weight: 700;
+  color: var(--ink-soft);
+}
+
+/* ==========================================================================
+   IMAGE 2: AGENTIC SPEED DATING POOL (CONSTELLATION NETWORK)
+   ========================================================================== */
+
+.dating-pool-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.pool-header-card {
+  padding: 20px 22px;
+  background: var(--cream-paper);
+  border: 2px solid var(--ink);
+  border-radius: 20px;
+  box-shadow: var(--shadow-hard-md);
+}
+
+.pool-title {
+  font-family: var(--font-heading);
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--ink);
+  line-height: 1.1;
+}
+
+.pool-mode-toggles {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.pool-toggle-btn {
+  background: #ffffff;
+  color: var(--ink);
+  border: 1.5px solid var(--ink);
+  border-radius: 999px;
+  padding: 6px 14px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 2px 2px 0 var(--ink);
+  transition: all 0.15s ease;
+}
+
+.pool-toggle-btn:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0 var(--ink);
+}
+
+.pool-toggle-btn.active {
+  background: var(--hot-pink);
+  color: #fff;
+  box-shadow: 2px 2px 0 var(--ink);
+}
+
+.pool-selected-banner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 14px;
+  padding: 8px 14px;
+  background: var(--blush);
+  border: 1.5px solid var(--ink);
+  border-radius: 12px;
+  box-shadow: 1.5px 1.5px 0 var(--ink);
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.pool-hint-banner {
+  margin-top: 12px;
+  font-size: 13px;
+  color: var(--ink-soft);
+  font-weight: 600;
+}
+
+.pool-canvas-card {
+  padding: 24px 16px;
+  background: var(--cream-paper);
+  border: 2px solid var(--ink);
+  border-radius: 22px;
+  box-shadow: var(--shadow-hard-md);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.constellation-wrapper {
+  width: 100%;
+  max-width: 560px;
+  position: relative;
+  margin: 0 auto;
+}
+
+.constellation-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  overflow: visible;
+}
+
+.pool-spotlight-drawer {
+  width: 100%;
+  max-width: 640px;
+  margin-top: 24px;
+  padding: 16px 20px;
+  background: #ffffff;
+  border: 2px solid var(--ink);
+  border-radius: 18px;
+  box-shadow: var(--shadow-hard-sm);
+}
+
+.spotlight-dates-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 10px;
+}
+
+.spotlight-date-chip {
+  background: var(--cream-paper);
+  border: 1.5px solid var(--ink);
+  border-radius: 12px;
+  padding: 10px 12px;
+  box-shadow: 1.5px 1.5px 0 var(--ink);
+}
+
+/* ==========================================================================
+   MOBILE RESPONSIVENESS (SAMSUNG S21 FE 5G & SMALL SCREENS)
+   ========================================================================== */
+
+@media (max-width: 960px) {
+  .rankings-layout-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .rankings-sidebar-col {
+    width: 100%;
+  }
+}
+
+@media (max-width: 680px) {
+  .rankings-title, .pool-title {
+    font-size: 26px !important;
+  }
+
+  .rankings-table-card {
+    padding: 14px 10px;
+    border-radius: 16px;
+  }
+
+  .rank-row td {
+    padding: 10px 8px;
+  }
+
+  .candidate-one-liner {
+    display: none; /* Keep clean on 360px phones */
+  }
+
+  .moment-cell {
+    min-width: 160px;
+  }
+
+  .moment-quote-text {
+    max-width: 180px;
+    font-size: 12px;
+  }
+
+  .compat-num {
+    font-size: 18px;
+  }
+
+  .constellation-wrapper {
+    max-width: 360px;
+  }
+}

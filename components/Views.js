@@ -330,59 +330,830 @@ function DatesPanel({ state, onLive, liveBusy, focus, setFocus }) {
   );
 }
 
-function RankingsPanel({ state, openDate }) {
-  const ids = readyIds(state);
-  const ranks = useMemo(() => buildRankings(state), [state]);
-  const [sel, setSel] = useState("");
-  const shown = sel ? [sel] : ids;
+function ChemistryWaveChart({ points }) {
+  if (!points || points.length < 2) {
+    return (
+      <div className="wave-chart-empty">
+        <span style={{ fontSize: "12px", opacity: 0.7 }}>run dates to plot chemistry trajectory ✦</span>
+      </div>
+    );
+  }
+
+  const width = 280;
+  const height = 95;
+  const padX = 20;
+  const padY = 14;
+  const plotW = width - padX * 2;
+  const plotH = height - padY * 2;
+
+  const coords = points.map((p, i) => {
+    const x = padX + (i / (points.length - 1)) * plotW;
+    const scoreVal = Math.max(30, Math.min(100, p.score));
+    const normalizedY = (scoreVal - 30) / 70;
+    const y = padY + plotH - normalizedY * plotH;
+    return { x, y, ...p };
+  });
+
+  let pathD = `M ${coords[0].x} ${coords[0].y}`;
+  for (let i = 0; i < coords.length - 1; i++) {
+    const curr = coords[i];
+    const next = coords[i + 1];
+    const cpX1 = curr.x + (next.x - curr.x) / 2;
+    const cpY1 = curr.y;
+    const cpX2 = curr.x + (next.x - curr.x) / 2;
+    const cpY2 = next.y;
+    pathD += ` C ${cpX1} ${cpY1}, ${cpX2} ${cpY2}, ${next.x} ${next.y}`;
+  }
+
+  const areaD = `${pathD} L ${coords[coords.length - 1].x} ${height - padY} L ${coords[0].x} ${height - padY} Z`;
 
   return (
-    <div>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "18px", flexWrap: "wrap", gap: "12px" }}>
-        <h3 style={{ fontSize: "28px", fontWeight: 800 }}>your top picks</h3>
-        <div style={{ minWidth: "220px" }}>
-          <select value={sel} onChange={(e) => setSel(e.target.value)}>
-            <option value="">everyone</option>
-            {ids.map((id) => (
-              <option key={id} value={id}>{nameOf(state, id)}</option>
-            ))}
-          </select>
+    <div className="chemistry-wave-container">
+      <div className="wave-header">
+        <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+          <span style={{ fontSize: "13px" }}>📈</span>
+          <span className="wave-title">chemistry wave</span>
+        </div>
+        <span className="wave-badge">{points[points.length - 1]?.score}% peak</span>
+      </div>
+      <svg viewBox={`0 0 ${width} ${height}`} className="wave-svg">
+        <defs>
+          <linearGradient id="waveFillGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="#FF4FA3" stopOpacity="0.32" />
+            <stop offset="60%" stopColor="#D9C8FF" stopOpacity="0.12" />
+            <stop offset="100%" stopColor="#FFF9F2" stopOpacity="0.0" />
+          </linearGradient>
+          <linearGradient id="waveStrokeGrad" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stopColor="#FF4FA3" />
+            <stop offset="50%" stopColor="#8B5CF6" />
+            <stop offset="100%" stopColor="#38BDF8" />
+          </linearGradient>
+        </defs>
+        <line x1={padX} y1={padY} x2={width - padX} y2={padY} stroke="var(--ink)" strokeOpacity="0.07" strokeDasharray="3 3" />
+        <line x1={padX} y1={padY + plotH / 2} x2={width - padX} y2={padY + plotH / 2} stroke="var(--ink)" strokeOpacity="0.07" strokeDasharray="3 3" />
+        <line x1={padX} y1={height - padY} x2={width - padX} y2={height - padY} stroke="var(--ink)" strokeOpacity="0.12" />
+
+        <path d={areaD} fill="url(#waveFillGrad)" />
+        <path d={pathD} fill="none" stroke="url(#waveStrokeGrad)" strokeWidth="3" strokeLinecap="round" />
+
+        {coords.map((c, i) => (
+          <circle key={i} cx={c.x} cy={c.y} r="3.5" fill="#FFF9F2" stroke="#FF4FA3" strokeWidth="2.2" />
+        ))}
+      </svg>
+      <div className="wave-x-labels">
+        {coords.map((c, i) => (
+          <span key={i} className="wave-x-label">{c.label}</span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function RankingsLeaderboard({ state, openDate }) {
+  const ids = readyIds(state);
+  const ranks = useMemo(() => buildRankings(state), [state]);
+  const matches = useMemo(() => mutualMatches(state), [state]);
+
+  const [selectedPerson, setSelectedPerson] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filterMode, setFilterMode] = useState("all"); // "all", "moots", "high"
+
+  // Compute all row pairings
+  const items = useMemo(() => {
+    if (selectedPerson) {
+      const personRanks = ranks[selectedPerson] || [];
+      return personRanks.map((r, i) => {
+        const d = state.dates?.[pairKey(selectedPerson, r.id)];
+        return {
+          key: pairKey(selectedPerson, r.id),
+          rank: i + 1,
+          a: selectedPerson,
+          b: r.id,
+          score: r.score,
+          mutual: r.mutual,
+          dated: r.dated,
+          highlight: d?.highlight || r.reason || "Shared connection on core values and creative energy ✦",
+          reason: r.reason,
+        };
+      });
+    }
+
+    // Cohort global leaderboard
+    return matches.map((m, idx) => ({
+      key: m.key,
+      rank: idx + 1,
+      a: m.a,
+      b: m.b,
+      score: m.avg,
+      mutual: m.both,
+      dated: true,
+      highlight: m.highlight || state.dates?.[m.key]?.highlight || "Sparks flew in the talking stage ✦",
+    }));
+  }, [selectedPerson, ranks, matches, state.dates]);
+
+  // Search and mode filter
+  const filtered = useMemo(() => {
+    return items.filter((item) => {
+      if (filterMode === "moots" && !item.mutual) return false;
+      if (filterMode === "high" && item.score < 80) return false;
+      if (searchQuery.trim()) {
+        const q = searchQuery.toLowerCase();
+        const nameA = (nameOf(state, item.a) || "").toLowerCase();
+        const nameB = (nameOf(state, item.b) || "").toLowerCase();
+        const bioA = (state.people[item.a]?.profile?.one_liner || "").toLowerCase();
+        const bioB = (state.people[item.b]?.profile?.one_liner || "").toLowerCase();
+        const highl = (item.highlight || "").toLowerCase();
+        return nameA.includes(q) || nameB.includes(q) || bioA.includes(q) || bioB.includes(q) || highl.includes(q);
+      }
+      return true;
+    });
+  }, [items, filterMode, searchQuery, state]);
+
+  // Points for chemistry wave chart
+  const wavePoints = useMemo(() => {
+    const list = matches.slice(0, 6);
+    if (!list.length) return [];
+    return list.map((m, idx) => ({
+      label: `D${idx + 1}`,
+      score: m.avg,
+      name: `${nameOf(state, m.a).split(" ")[0]} × ${nameOf(state, m.b).split(" ")[0]}`,
+    }));
+  }, [matches, state]);
+
+  const totalMoots = matches.filter((m) => m.both).length;
+  const avgCompat = matches.length
+    ? Math.round(matches.reduce((acc, m) => acc + m.avg, 0) / matches.length)
+    : 0;
+  const topScore = matches.length ? Math.max(...matches.map((m) => m.avg)) : 0;
+
+  return (
+    <div className="rankings-container">
+      {/* Top Header */}
+      <div className="rankings-top-bar">
+        <div>
+          <div className="rankings-sticker-badge">✦ live agent leaderboard</div>
+          <h2 className="rankings-title">cohort rankings</h2>
+          <p className="muted" style={{ margin: "2px 0 0", fontSize: "14px" }}>
+            multi-agent compatibility sorted by mutual chemistry & private post-date verdicts
+          </p>
+        </div>
+
+        <div className="rankings-filter-pills">
+          <button
+            className={"filter-pill-btn " + (filterMode === "all" ? "active" : "")}
+            onClick={() => setFilterMode("all")}
+          >
+            all pairs ✦
+          </button>
+          <button
+            className={"filter-pill-btn " + (filterMode === "moots" ? "active" : "")}
+            onClick={() => setFilterMode("moots")}
+          >
+            mutual moots only 💕
+          </button>
+          <button
+            className={"filter-pill-btn " + (filterMode === "high" ? "active" : "")}
+            onClick={() => setFilterMode("high")}
+          >
+            high spark (≥80%) 🔥
+          </button>
         </div>
       </div>
 
-      <div className="grid2">
-        {shown.map((id) => (
-          <div className="card" key={id}>
-            <h3 style={{ fontSize: "26px", fontWeight: 800 }}>{nameOf(state, id)}'s best fits</h3>
-            {(ranks[id] || []).slice(0, 5).map((r, i) => (
-              <div className="rank" key={r.id}>
-                <div className="rhead">
-                  <b style={{ fontSize: "18px", fontWeight: 800 }}>#{i + 1} {nameOf(state, r.id)}</b>
-                  <span className={"score " + (r.mutual ? "good" : "")}>
-                    {r.mutual ? "✦ " : ""}{r.score}%
-                  </span>
-                  {r.mutual ? <span className="badge ok">moot!</span> : null}
-                </div>
-                {r.dated ? (
-                  <div className="bars" style={{ margin: "8px 0" }}>
-                    <small className="muted">{nameOf(state, id).split(" ")[0]}'s rating: {r.mine}%</small>
-                    <div className="bar"><i style={{ width: r.mine + "%" }} /></div>
+      {/* Main 2-Column Grid matching Image 1 */}
+      <div className="rankings-layout-grid">
+        {/* Left Column: Leaderboard Table */}
+        <div className="rankings-main-col">
+          <div className="card rankings-table-card">
+            {/* Person selector filter */}
+            <div className="rankings-table-toolbar">
+              <span style={{ fontSize: "13.5px", fontWeight: 700, color: "var(--ink)" }}>
+                viewing cohort fits for:
+              </span>
+              <div style={{ maxWidth: "260px", flex: 1 }}>
+                <select
+                  value={selectedPerson}
+                  onChange={(e) => setSelectedPerson(e.target.value)}
+                  style={{ fontSize: "13.5px", padding: "6px 12px", minHeight: "38px" }}
+                >
+                  <option value="">all candidates (global cohort)</option>
+                  {ids.map((id) => (
+                    <option key={id} value={id}>
+                      {nameOf(state, id)}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+
+            {/* Table */}
+            <div className="rankings-table-wrapper">
+              <table className="rankings-table">
+                <thead>
+                  <tr>
+                    <th style={{ width: "65px", textAlign: "center" }}>rank</th>
+                    <th style={{ minWidth: "170px" }}>candidate</th>
+                    <th style={{ minWidth: "115px", textAlign: "center" }}>direct match</th>
+                    <th style={{ minWidth: "220px" }}>key moment & match meter</th>
+                    <th style={{ width: "105px", textAlign: "right" }}>compatibility</th>
+                    <th style={{ width: "95px", textAlign: "center" }}>date</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {filtered.map((it, idx) => {
+                    const isTop1 = it.rank === 1;
+                    const pA = state.people[it.a]?.profile;
+                    const pB = state.people[it.b]?.profile;
+                    const initialA = (nameOf(state, it.a) || "?")[0];
+                    const initialB = (nameOf(state, it.b) || "?")[0];
+
+                    return (
+                      <tr
+                        key={it.key || idx}
+                        className={"rank-row " + (isTop1 ? "rank-row-top" : "")}
+                      >
+                        {/* Rank Badge */}
+                        <td className="rank-cell" style={{ textAlign: "center" }}>
+                          {it.rank === 1 ? (
+                            <span className="rank-badge gold-crown" title="#1 Match 👑">
+                              👑 1
+                            </span>
+                          ) : it.rank === 2 ? (
+                            <span className="rank-badge silver-medal" title="#2 Match">
+                              🥈 2
+                            </span>
+                          ) : it.rank === 3 ? (
+                            <span className="rank-badge bronze-medal" title="#3 Match">
+                              🥉 3
+                            </span>
+                          ) : (
+                            <span className="rank-badge plain-rank">#{it.rank}</span>
+                          )}
+                        </td>
+
+                        {/* Candidate A */}
+                        <td className="candidate-cell">
+                          <div className="candidate-box">
+                            <div className="candidate-avatar">
+                              {initialA}
+                              <span className="status-dot-green" title="online active" />
+                            </div>
+                            <div className="candidate-meta">
+                              <div className="candidate-name-row">
+                                <span className="candidate-name">{nameOf(state, it.a)}</span>
+                                <span className="verified-sparkle">✦</span>
+                              </div>
+                              <span className="candidate-one-liner">
+                                {pA?.one_liner || "agent ready"}
+                              </span>
+                            </div>
+                          </div>
+                        </td>
+
+                        {/* Direct Match: Dual Avatar Capsule */}
+                        <td className="direct-match-cell" style={{ textAlign: "center" }}>
+                          <div className="dual-avatar-capsule" title={`${nameOf(state, it.a)} × ${nameOf(state, it.b)}`}>
+                            <span className="dual-avatar-chip">{initialA}</span>
+                            <span className="dual-avatar-arrow">⇄</span>
+                            <span className="dual-avatar-chip">{initialB}</span>
+                          </div>
+                          <span className="direct-match-subname">
+                            {nameOf(state, it.b).split(" ")[0]}
+                          </span>
+                        </td>
+
+                        {/* Key Moment & Progress Bar */}
+                        <td className="moment-cell">
+                          <div className="moment-quote-text">
+                            "{it.highlight}"
+                          </div>
+                          <div className="moment-meter-row">
+                            <div className="mini-meter-track">
+                              <div
+                                className="mini-meter-fill"
+                                style={{ width: `${it.score}%` }}
+                              />
+                            </div>
+                            <span className="mini-meter-pill">{it.score}%</span>
+                          </div>
+                        </td>
+
+                        {/* Compatibility */}
+                        <td className="compat-cell" style={{ textAlign: "right" }}>
+                          <div className="compat-num">{it.score}%</div>
+                          <div className="compat-tag">
+                            {it.mutual ? (
+                              <span className="badge-moot-glow">moot! ✦</span>
+                            ) : (
+                              <span className="badge-spark-soft">match</span>
+                            )}
+                          </div>
+                        </td>
+
+                        {/* Action: Open Date */}
+                        <td className="action-cell" style={{ textAlign: "center" }}>
+                          <button
+                            className="btn neuro-btn-sm date-action-btn"
+                            onClick={() => openDate(it.key)}
+                          >
+                            read ✦
+                          </button>
+                        </td>
+                      </tr>
+                    );
+                  })}
+
+                  {!filtered.length ? (
+                    <tr>
+                      <td colSpan={6} style={{ textAlign: "center", padding: "40px" }}>
+                        <p className="muted">no rankings match this filter or search query.</p>
+                      </td>
+                    </tr>
+                  ) : null}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        {/* Right Column: Analytics Sidebar matching Image 1 */}
+        <div className="rankings-sidebar-col">
+          <div className="card rankings-sidebar-card">
+            {/* Search Input */}
+            <div className="sidebar-search-box">
+              <span className="search-icon">🔍</span>
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="search moots..."
+                className="sidebar-search-input"
+              />
+              {searchQuery ? (
+                <button
+                  className="sidebar-search-clear"
+                  onClick={() => setSearchQuery("")}
+                >
+                  ✕
+                </button>
+              ) : null}
+            </div>
+
+            {/* Top Moots Quick List */}
+            <div className="sidebar-section">
+              <div className="sidebar-section-header">
+                <span className="sidebar-title">✦ top moots</span>
+                <span className="sidebar-count">{matches.length} pairs</span>
+              </div>
+              <div className="sidebar-moots-list">
+                {matches.slice(0, 3).map((m, idx) => (
+                  <div
+                    key={m.key}
+                    className="sidebar-moot-row"
+                    onClick={() => openDate(m.key)}
+                  >
+                    <span className="sidebar-moot-rank">#{idx + 1}</span>
+                    <div className="sidebar-moot-names">
+                      <b>{nameOf(state, m.a).split(" ")[0]} × {nameOf(state, m.b).split(" ")[0]}</b>
+                      <small className="muted">{m.both ? "mutual spark 💕" : "dated"}</small>
+                    </div>
+                    <span className={"score " + (m.both ? "good" : "")}>
+                      {m.avg}%
+                    </span>
                   </div>
-                ) : null}
-                <p style={{ fontSize: "15px", margin: "6px 0", lineHeight: "1.6" }}>{r.reason}</p>
-                {r.concerns?.[0] ? <small className="muted" style={{ display: "block" }}>red flags 🚩: {r.concerns[0]}</small> : null}
-                {r.dated ? (
-                  <div style={{ marginTop: "6px" }}>
-                    <button className="link" onClick={() => openDate(pairKey(id, r.id))}>
-                      read their date
+                ))}
+              </div>
+            </div>
+
+            {/* Chemistry Wave Chart */}
+            <div className="sidebar-section">
+              <ChemistryWaveChart points={wavePoints} />
+            </div>
+
+            {/* Cohort Stats */}
+            <div className="sidebar-section">
+              <span className="sidebar-title" style={{ display: "block", marginBottom: "8px" }}>
+                ✦ cohort metrics
+              </span>
+              <div className="cohort-stats-grid">
+                <div className="stat-pill-box">
+                  <span className="stat-val">{totalMoots}</span>
+                  <span className="stat-lbl">mutual moots</span>
+                </div>
+                <div className="stat-pill-box">
+                  <span className="stat-val">{avgCompat}%</span>
+                  <span className="stat-lbl">avg spark</span>
+                </div>
+                <div className="stat-pill-box">
+                  <span className="stat-val">{topScore}%</span>
+                  <span className="stat-lbl">top match</span>
+                </div>
+                <div className="stat-pill-box">
+                  <span className="stat-val">{ids.length}</span>
+                  <span className="stat-lbl">candidates</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function SpeedDatingPool({ state, openDate, onPickForDate }) {
+  const ids = readyIds(state);
+  const matches = useMemo(() => mutualMatches(state), [state]);
+  const [filterMode, setFilterMode] = useState("all"); // "all", "moots", "high"
+  const [selectedId, setSelectedId] = useState(null);
+
+  // Pool coordinate math
+  const size = 560;
+  const center = size / 2;
+  const radius = 205;
+  const N = Math.max(1, ids.length);
+
+  const nodeMap = useMemo(() => {
+    const map = {};
+    ids.forEach((id, index) => {
+      const angle = (2 * Math.PI * index) / N - Math.PI / 2;
+      const x = center + radius * Math.cos(angle);
+      const y = center + radius * Math.sin(angle);
+      map[id] = { id, x, y, angle, index };
+    });
+    return map;
+  }, [ids, N, center, radius]);
+
+  // Filter matches
+  const filteredMatches = useMemo(() => {
+    return matches.filter((m) => {
+      if (filterMode === "moots" && !m.both) return false;
+      if (filterMode === "high" && m.avg < 80) return false;
+      return true;
+    });
+  }, [matches, filterMode]);
+
+  // Selected person dates
+  const selectedDates = useMemo(() => {
+    if (!selectedId) return [];
+    return matches.filter((m) => m.a === selectedId || m.b === selectedId);
+  }, [selectedId, matches]);
+
+  // Which dialogue bubbles to render floating along cords
+  const bubbleList = useMemo(() => {
+    if (selectedId) {
+      return selectedDates.slice(0, 4);
+    }
+    return filteredMatches.slice(0, 4);
+  }, [selectedId, selectedDates, filteredMatches]);
+
+  const selectedPerson = selectedId ? state.people[selectedId] : null;
+
+  return (
+    <div className="dating-pool-container">
+      {/* Pool Header matching Image 2 */}
+      <div className="pool-header-card">
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: "12px" }}>
+          <div>
+            <div className="rankings-sticker-badge">✦ agentic speed dating pool</div>
+            <h2 className="pool-title">the speed dating pool</h2>
+            <p className="muted" style={{ margin: "2px 0 0", fontSize: "14px" }}>
+              interactive multi-agent constellation • click any candidate to spotlight their connections & secret quotes
+            </p>
+          </div>
+
+          <div className="pool-mode-toggles">
+            <button
+              className={"pool-toggle-btn " + (filterMode === "all" ? "active" : "")}
+              onClick={() => setFilterMode("all")}
+            >
+              all dates ✦
+            </button>
+            <button
+              className={"pool-toggle-btn " + (filterMode === "moots" ? "active" : "")}
+              onClick={() => setFilterMode("moots")}
+            >
+              mutual moots 💕
+            </button>
+            <button
+              className={"pool-toggle-btn " + (filterMode === "high" ? "active" : "")}
+              onClick={() => setFilterMode("high")}
+            >
+              high spark 🔥
+            </button>
+          </div>
+        </div>
+
+        {selectedId ? (
+          <div className="pool-selected-banner">
+            <span style={{ fontWeight: 700 }}>
+              spotlighting <strong>{nameOf(state, selectedId)}</strong> ({selectedDates.length} blind dates)
+            </span>
+            <button className="btn neuro-btn-sm" onClick={() => setSelectedId(null)}>
+              view entire pool ✦
+            </button>
+          </div>
+        ) : (
+          <div className="pool-hint-banner">
+            <span>💡 tap any avatar in the ring below to spotlight their conversations & mutual chemistry!</span>
+          </div>
+        )}
+      </div>
+
+      {/* Circular Constellation Canvas */}
+      <div className="pool-canvas-card">
+        <div className="constellation-wrapper">
+          <svg viewBox={`0 0 ${size} ${size}`} className="constellation-svg">
+            <defs>
+              <filter id="poolGlowPink" x="-30%" y="-30%" width="160%" height="160%">
+                <feDropShadow dx="0" dy="0" stdDeviation="4.5" floodColor="#FF4FA3" floodOpacity="0.75" />
+              </filter>
+              <filter id="poolGlowViolet" x="-30%" y="-30%" width="160%" height="160%">
+                <feDropShadow dx="0" dy="0" stdDeviation="3.5" floodColor="#8B5CF6" floodOpacity="0.65" />
+              </filter>
+              <filter id="bubbleDropShadow" x="-20%" y="-20%" width="140%" height="140%">
+                <feDropShadow dx="2" dy="2" stdDeviation="3" floodColor="#1B1426" floodOpacity="0.18" />
+              </filter>
+            </defs>
+
+            {/* Background ring */}
+            <circle
+              cx={center}
+              cy={center}
+              r={radius}
+              fill="none"
+              stroke="var(--ink)"
+              strokeOpacity="0.08"
+              strokeWidth="1.5"
+              strokeDasharray="4 4"
+            />
+
+            {/* Connection Cords */}
+            {filteredMatches.map((m) => {
+              const nodeA = nodeMap[m.a];
+              const nodeB = nodeMap[m.b];
+              if (!nodeA || !nodeB) return null;
+
+              // Quadratic curve toward center
+              const mx = (nodeA.x + nodeB.x) / 2;
+              const my = (nodeA.y + nodeB.y) / 2;
+              const cpx = mx + (center - mx) * 0.22;
+              const cpy = my + (center - my) * 0.22;
+              const dPath = `M ${nodeA.x} ${nodeA.y} Q ${cpx} ${cpy} ${nodeB.x} ${nodeB.y}`;
+
+              const isConnectedToSelected = selectedId
+                ? m.a === selectedId || m.b === selectedId
+                : true;
+
+              const strokeColor = m.both
+                ? "#FF4FA3"
+                : m.avg >= 80
+                ? "#8B5CF6"
+                : "#38BDF8";
+
+              const strokeWidth = isConnectedToSelected
+                ? (m.both ? 3.5 : 2.6)
+                : 1.2;
+
+              const opacity = selectedId
+                ? (isConnectedToSelected ? 0.95 : 0.08)
+                : (m.both ? 0.85 : 0.55);
+
+              const filter = isConnectedToSelected
+                ? (m.both ? "url(#poolGlowPink)" : m.avg >= 80 ? "url(#poolGlowViolet)" : undefined)
+                : undefined;
+
+              return (
+                <path
+                  key={m.key}
+                  d={dPath}
+                  fill="none"
+                  stroke={strokeColor}
+                  strokeWidth={strokeWidth}
+                  strokeOpacity={opacity}
+                  filter={filter}
+                  style={{ cursor: "pointer", transition: "all 0.3s ease" }}
+                  onClick={() => openDate(m.key)}
+                />
+              );
+            })}
+
+            {/* Floating Dialogue Speech Bubbles */}
+            {bubbleList.map((m, idx) => {
+              const nodeA = nodeMap[m.a];
+              const nodeB = nodeMap[m.b];
+              if (!nodeA || !nodeB) return null;
+
+              const mx = (nodeA.x + nodeB.x) / 2;
+              const my = (nodeA.y + nodeB.y) / 2;
+              const cpx = mx + (center - mx) * 0.22;
+              const cpy = my + (center - my) * 0.22;
+
+              // Staggered offsets
+              const offsets = [
+                { dx: -25, dy: -30 },
+                { dx: 32, dy: 18 },
+                { dx: -38, dy: 28 },
+                { dx: 24, dy: -36 },
+              ];
+              const off = offsets[idx % offsets.length];
+              const bx = cpx + off.dx;
+              const by = cpy + off.dy;
+
+              const snippet = m.highlight
+                ? (m.highlight.length > 34 ? m.highlight.slice(0, 32) + "..." : m.highlight)
+                : "Do you like hiking? 😄";
+
+              const label = `${nameOf(state, m.a).split(" ")[0]} × ${nameOf(state, m.b).split(" ")[0]}`;
+
+              return (
+                <g
+                  key={`bubble-${m.key}`}
+                  className="pool-bubble-group"
+                  onClick={() => openDate(m.key)}
+                  style={{ cursor: "pointer" }}
+                >
+                  <rect
+                    x={bx - 78}
+                    y={by - 24}
+                    width="156"
+                    height="48"
+                    rx="14"
+                    fill="#FFF9F2"
+                    stroke={m.both ? "#FF4FA3" : "var(--ink)"}
+                    strokeWidth={m.both ? "2" : "1.5"}
+                    filter="url(#bubbleDropShadow)"
+                  />
+                  <text
+                    x={bx}
+                    y={by - 8}
+                    textAnchor="middle"
+                    fontSize="9.5"
+                    fontWeight="800"
+                    fill={m.both ? "#FF4FA3" : "var(--ink-soft)"}
+                  >
+                    ✦ {label} · {m.avg}%
+                  </text>
+                  <text
+                    x={bx}
+                    y={by + 10}
+                    textAnchor="middle"
+                    fontSize="11"
+                    fontStyle="italic"
+                    fill="var(--ink)"
+                  >
+                    "{snippet}"
+                  </text>
+                </g>
+              );
+            })}
+
+            {/* Perimeter Agent Nodes */}
+            {ids.map((id) => {
+              const node = nodeMap[id];
+              if (!node) return null;
+              const isSelected = selectedId === id;
+              const initial = (nameOf(state, id) || "?")[0];
+              const hasMoot = matches.some((m) => (m.a === id || m.b === id) && m.both);
+
+              return (
+                <g
+                  key={id}
+                  className="pool-node-element"
+                  onClick={() => setSelectedId(isSelected ? null : id)}
+                  style={{ cursor: "pointer" }}
+                >
+                  {/* Selection / moot outer ring */}
+                  {isSelected ? (
+                    <circle
+                      cx={node.x}
+                      cy={node.y}
+                      r="29"
+                      fill="none"
+                      stroke="#FF4FA3"
+                      strokeWidth="3.5"
+                      filter="url(#poolGlowPink)"
+                    />
+                  ) : hasMoot ? (
+                    <circle
+                      cx={node.x}
+                      cy={node.y}
+                      r="27"
+                      fill="none"
+                      stroke="#FFF3B0"
+                      strokeWidth="2.5"
+                    />
+                  ) : null}
+
+                  {/* Node Avatar Circle */}
+                  <circle
+                    cx={node.x}
+                    cy={node.y}
+                    r="23"
+                    fill={isSelected ? "#FFD6E8" : "#FFF9F2"}
+                    stroke="var(--ink)"
+                    strokeWidth="2"
+                  />
+                  <text
+                    x={node.x}
+                    y={node.y + 7}
+                    textAnchor="middle"
+                    fontSize="16"
+                    fontWeight="800"
+                    fill="var(--ink)"
+                  >
+                    {initial}
+                  </text>
+
+                  {/* Active / Moot Pill at bottom */}
+                  <rect
+                    x={node.x - 23}
+                    y={node.y + 16}
+                    width="46"
+                    height="16"
+                    rx="8"
+                    fill={hasMoot ? "#FF4FA3" : "#10B981"}
+                  />
+                  <text
+                    x={node.x}
+                    y={node.y + 28}
+                    textAnchor="middle"
+                    fontSize="9.5"
+                    fontWeight="800"
+                    fill="#FFFFFF"
+                  >
+                    {hasMoot ? "moot 💕" : "active ✦"}
+                  </text>
+
+                  {/* First Name text */}
+                  <text
+                    x={node.x}
+                    y={node.y + 44}
+                    textAnchor="middle"
+                    fontSize="12.5"
+                    fontWeight="800"
+                    fill="var(--ink)"
+                  >
+                    {nameOf(state, id).split(" ")[0]}
+                  </text>
+                </g>
+              );
+            })}
+          </svg>
+        </div>
+
+        {/* Spotlight Info Drawer below circle */}
+        {selectedPerson ? (
+          <div className="pool-spotlight-drawer">
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "12px", flexWrap: "wrap", gap: "8px" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                <div className="avatar" style={{ width: "42px", height: "48px", fontSize: "20px" }}>
+                  {(selectedPerson.profile?.name || "?")[0]}
+                </div>
+                <div>
+                  <h4 style={{ fontSize: "20px", fontWeight: 800, margin: 0 }}>
+                    {selectedPerson.profile?.name}
+                  </h4>
+                  <small className="muted">{selectedPerson.profile?.location || "candidate"} · {selectedDates.length} speed dates completed</small>
+                </div>
+              </div>
+              <button
+                className="btn neuro-btn-sm"
+                onClick={() => setSelectedId(null)}
+              >
+                clear spotlight ✕
+              </button>
+            </div>
+
+            <div className="spotlight-dates-grid">
+              {selectedDates.map((m) => {
+                const otherId = m.a === selectedId ? m.b : m.a;
+                return (
+                  <div key={m.key} className="spotlight-date-chip">
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                      <b>with {nameOf(state, otherId).split(" ")[0]}</b>
+                      <span className={"score " + (m.both ? "good" : "")}>
+                        {m.avg}%
+                      </span>
+                    </div>
+                    {m.highlight ? (
+                      <p style={{ fontSize: "13px", fontStyle: "italic", margin: "4px 0 8px" }}>
+                        "{m.highlight}"
+                      </p>
+                    ) : null}
+                    <button
+                      className="link"
+                      style={{ fontSize: "12.5px" }}
+                      onClick={() => openDate(m.key)}
+                    >
+                      read date transcript ✦
                     </button>
                   </div>
-                ) : null}
-              </div>
-            ))}
-            {!(ranks[id] || []).length ? <p className="muted">no rankings yet.</p> : null}
+                );
+              })}
+            </div>
           </div>
-        ))}
+        ) : null}
       </div>
     </div>
   );
@@ -468,10 +1239,11 @@ export function Views({ state, tab, setTab, onLive, onManual, liveBusy, focus, s
   };
 
   const tabs = [
-    ["profiles", "the people", ids.length],
-    ["dates", "the dates", Object.keys(state.dates || {}).length],
-    ["rankings", "your top picks", ids.length],
+    ["pool", "dating pool ✦", ids.length],
+    ["rankings", "leaderboard ✦", ids.length],
     ["matches", "moots", mutualMatches(state).length],
+    ["dates", "the dates", Object.keys(state.dates || {}).length],
+    ["profiles", "the people", ids.length],
   ];
 
   return (
@@ -493,6 +1265,21 @@ export function Views({ state, tab, setTab, onLive, onManual, liveBusy, focus, s
         ))}
       </div>
 
+      {tab === "pool" ? (
+        <SpeedDatingPool
+          state={state}
+          openDate={openDate}
+          onPickForDate={handlePickForDate}
+        />
+      ) : null}
+
+      {tab === "rankings" ? (
+        <RankingsLeaderboard
+          state={state}
+          openDate={openDate}
+        />
+      ) : null}
+
       {tab === "profiles" ? (
         <div className="grid2">
           {ids.map((id) => (
@@ -513,13 +1300,6 @@ export function Views({ state, tab, setTab, onLive, onManual, liveBusy, focus, s
           liveBusy={liveBusy}
           focus={focus}
           setFocus={setFocus}
-        />
-      ) : null}
-
-      {tab === "rankings" ? (
-        <RankingsPanel
-          state={state}
-          openDate={openDate}
         />
       ) : null}
 

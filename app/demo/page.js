@@ -5,7 +5,7 @@ import { Logo } from "../../components/Logo";
 
 export default function Demo() {
   const [state, setState] = useState(null);
-  const [tab, setTab] = useState("matches"); // Default to "moots"
+  const [tab, setTab] = useState("pool"); // Default to Agentic Speed Dating Pool
   const [focus, setFocus] = useState(null);
   const [err, setErr] = useState("");
 
